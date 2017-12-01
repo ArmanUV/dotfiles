@@ -2,12 +2,15 @@
 
 cd "$(dirname "${BASH_SOURCE}")";
 
-git pull origin master;
+# git pull origin master;
 
 function doIt() {
 	rsync --exclude ".git/" \
+		--exclude "init/" \
 		--exclude ".DS_Store" \
+		--exclude "brew.sh" \
 		--exclude ".osx" \
+		--exclude ".macos" \
 		--exclude "bootstrap.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE-MIT.txt" \

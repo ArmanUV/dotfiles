@@ -1,10 +1,35 @@
+[user]
+	name = Arman Samimi
+	email = asamimi@apple.com
+
 [alias]
 
-	# View abbreviated SHA, description, and history graph of the latest 20 commits
-	l = log --pretty=oneline -n 20 --graph --abbrev-commit
+	# pull rebase and sync and update all the submodules
+	spullr = !"git pull --rebase=preserve --prune $@ && git submodule sync --recursive && git submodule update --init --recursive"
 
-	# View the current working tree status using the short format
-	s = status -s
+	# push that makes sure submodules are pushed if needed
+	spush = push --recurse-submodules=on-demand
+
+	# check if remote master moved ahead
+	check = !"git fetch origin $@ && git log HEAD..origin/master --oneline"
+
+	# Commit all added/changed files
+	cm = !"git add -A && git commit -m"
+
+	# Better than a simple hard reset since you can recover the work from reflog
+	wipe = !"git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard"
+
+	# View abbreviated SHA, description, and history graph of the latest 20 commits
+	l   = log --pretty=oneline --decorate --graph --abbrev-commit
+	l10 = log --pretty=oneline --decorate --graph --abbrev-commit -n 10
+	l20 = log --pretty=oneline --decorate --graph --abbrev-commit -n 20
+
+	# Show a brief log with just the merge commits
+	lp = log --pretty=oneline --decorate -n 20 --first-parent --abbrev-commit
+
+	# Shortcuts for status
+	s = status
+	ss = status -s
 
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
@@ -16,10 +41,15 @@
 	p = !"git pull; git submodule foreach git pull origin master"
 
 	# Clone a repository including all submodules
-	c = clone --recursive
+	# c = clone --recursive
+
+	c = checkout
 
 	# Commit all changes
 	ca = !git add -A && git commit -av
+
+	# diff the staged files vs. HEAD
+	ds = diff --staged
 
 	# Switch to a branch, creating it if necessary
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
@@ -106,6 +136,7 @@
 	# Speed up commands involving untracked files such as `git status`.
 	# https://git-scm.com/docs/git-update-index#_untracked_cache
 	untrackedCache = true
+	pager = less -x4
 
 [color]
 
@@ -135,12 +166,16 @@
 [commit]
 
 	# https://help.github.com/articles/signing-commits-using-gpg/
-	gpgsign = true
+	# gpgsign = true
 
 [diff]
 
 	# Detect copies as well as renames
 	renames = copies
+
+	# Includes submodule info
+	submodule = log
+	tool = bc3
 
 [diff "bin"]
 
@@ -153,9 +188,9 @@
 	autocorrect = 1
 
 [merge]
-
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
+	tool = bc3
 
 [push]
 
@@ -163,6 +198,16 @@
 	default = simple
 	# Make `git push` push relevant annotated tags when pushing branches out.
 	followTags = true
+
+[status]
+    # Make status submodule aware
+    submoduleSummary = true
+
+[rerere]
+	enabled = true
+
+[mergetool]
+	bc3 = trustExitCode
 
 # URL shorthands
 
