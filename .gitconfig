@@ -9,7 +9,9 @@
 
 	# push that makes sure submodules are pushed if needed
 	spush = push --recurse-submodules=on-demand
-
+	
+	su = !"git submodule update --init"
+	
 	# check if remote master moved ahead
 	check = !"git fetch origin $@ && git log HEAD..origin/master --oneline"
 
@@ -136,7 +138,7 @@
 	# Speed up commands involving untracked files such as `git status`.
 	# https://git-scm.com/docs/git-update-index#_untracked_cache
 	untrackedCache = true
-	pager = less -x4
+	pager = less -x1,5
 
 [color]
 

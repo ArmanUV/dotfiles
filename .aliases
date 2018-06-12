@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# mine
+
+alias nk="nanokdp -w70"
+
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
 alias ...="cd ../.."
