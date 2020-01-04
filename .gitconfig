@@ -9,9 +9,9 @@
 
 	# push that makes sure submodules are pushed if needed
 	spush = push --recurse-submodules=on-demand
-	
+
 	su = !"git submodule update --init"
-	
+
 	# check if remote master moved ahead
 	check = !"git fetch origin $@ && git log HEAD..origin/master --oneline"
 

@@ -13,6 +13,10 @@ shopt -s nocaseglob;
 # Append to the Bash history file, rather than overwriting it
 shopt -s histappend;
 
+# Save and reload the history after each command finishes 
+# (share history of multiple terminal windows)
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell;
 

@@ -2,7 +2,10 @@
 
 # mine
 
+alias powersample="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/usr/local/bin/power_sample"
+
 alias nk="nanokdp -w70"
+alias nn="nanokdp -c 921600,n,8,1 -w 70"
 
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
@@ -13,11 +16,13 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # Shortcuts
-alias d="cd ~/Documents/Dropbox"
+alias db="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
-alias p="cd ~/projects"
+# alias proj="cd \"/Users/arman/Library/Mobile Documents/com~apple~icloud~applecorporate/Documents/Projects\""
 alias g="git"
+alias proj="cd ~/iCloudWork/Projects"
+alias pydiag="cd ~/iCloudWork/Projects/Git/pydiag"
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
